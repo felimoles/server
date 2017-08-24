@@ -80,7 +80,7 @@ var user_schema = Schema({
 	username: {type:String,required:true, unique: true, maxlength:[50,"Nombre de usuario muy grande"]},
 	password: {
 		type:String,
-		minlength:[8,"La contraseña es muy corta"],
+		minlength:[6,"La contraseña es muy corta"],
 		validate: password_validation
 	},
 	universidad: { type:String, required:"La universidad es un campo obligatorio" },

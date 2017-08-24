@@ -7,15 +7,27 @@ function PollListCtrl2($scope) {
 	console.log("scope",$scope);
 }
 
- function PollListCtrl($scope, Poll) {
+ function PollListCtrl($scope, Poll,$http) {
 	$scope.polls = Poll.query();
+	var refresh = function(){
 
+		$http.get('/polls/polls').success(function(response){
+			$scope.polls = response;
+			console.log("clean");
 
+		});
+	}
+	//refresh();
 	$scope.delete = function(poll_id) {
 		var Polln = new Poll();
 		var id = poll_id;
 		if (confirm("Seguro que desea borrar esta encuesta?")) {
-			console.log("asdsdfasdfasdsadasd",id);
+		//	console.log("asdsdfasdfasdsadasd",id);
+
+			$http.delete('/deleteobject/'+ id).then(function(){
+
+				refresh();
+			});
 
 
 		}
@@ -28,7 +40,7 @@ function PollListCtrl2($scope) {
 	$scope.ok = function() {
 
 		
-		console.log("delete",poll_id);
+	//	console.log("delete",poll_id);
 		$scope.showModal = false;
 	};
 
@@ -43,7 +55,7 @@ function PollListCtrl2($scope) {
 function PollItemCtrl2($scope, $routeParams, socket, Poll) {
 	$scope.poll = Poll;
 	
-	console.log($scope.poll);
+	//console.log($scope.poll);
 	var perro;
 
 	
@@ -59,7 +71,7 @@ function PollItemCtrl2($scope, $routeParams, socket, Poll) {
 			$scope.polltipo3.elecciones[i].text = $scope.poll.choices_tipo3[i].text;
 		}
 	}
-	console.log($scope.polltipo3);
+	//console.log($scope.polltipo3);
 	switch(parseInt($scope.poll.tipo)){
 		case 0:
 			perro = $scope.poll.choices_tipo1;
@@ -120,13 +132,13 @@ function PollItemCtrl($scope, $routeParams, socket, Poll, $http, $timeout) {
 	$scope.poll = Poll;
 	$scope.Activado = $scope.poll.Activa;
 	var myLineChart;
-	console.log("A " +$scope.Activado);
+//	console.log("A " +$scope.Activado);
 	
 	$scope.showMoreFunc = function() {
 		$scope.Activado = true;
     	var mytimeout = $timeout($scope.onTimeout,1000);
 		$http.get('/grabar/'+$scope.poll._id).success(function(){
-			 console.log("YAY!");
+			// console.log("YAY!");
 		});
 		/*$http.get('http://'+IpCon+':3000/grabar/'+$scope.poll._id).success(function(){
 			 console.log("YAY!");
@@ -136,7 +148,7 @@ function PollItemCtrl($scope, $routeParams, socket, Poll, $http, $timeout) {
 	$scope.showMoreFunc2 = function() {
 		 $scope.Activado = false;
 		 $http.get('/detener/'+$scope.poll._id).success(function(){
-			 console.log("YAY!");
+			// console.log("YAY!");
 			});
 		 /*$http.get('http://'+IpCon+':3000/detener/'+$scope.poll._id).success(function(){
 			 console.log("YAY!");
@@ -220,7 +232,7 @@ function PollItemCtrl($scope, $routeParams, socket, Poll, $http, $timeout) {
 
 		for(var i=0; i < largo2; i++){
 			myLineChart.data.labels[i] = choicesl[i].text;
-			console.log(choicesl[i].text);
+		//	console.log(choicesl[i].text);
 			if(parseInt($scope.poll.tipo)!=2){
 				myLineChart.data.datasets[0].data[i] = choicesl[i].votes.length;
 			}else{
@@ -270,7 +282,7 @@ function PollItemCtrl($scope, $routeParams, socket, Poll, $http, $timeout) {
 }
 
 function PollEditCtrl($scope, $location, Poll, Poll2, $http) {
-	console.log("poll2",Poll2);
+	//console.log("poll2",Poll2);
 	$scope.cat = {
 			catSchema: Poll2.catSchema
 
@@ -324,7 +336,7 @@ function PollEditCtrl($scope, $location, Poll, Poll2, $http) {
 						$scope.isCorrect = i;
 					}
 				}
-				console.log($scope.polltipo2);
+			//	console.log($scope.polltipo2);
 				break;
 			case 2:
 				for(var i = 2; i < Poll2.choices_tipo3.length; i++) {
@@ -383,12 +395,12 @@ function PollEditCtrl($scope, $location, Poll, Poll2, $http) {
 				$scope.opcion = 2;
 				break;
 		}
-		console.log($scope.opcion);
+		//console.log($scope.opcion);
 	}
 	
 	// Validate and save the new poll to the database
 	$scope.createPoll = function() {
-		console.log("scope create",$scope)
+		//console.log("scope create",$scope)
 		//$window.location.href = 
 		//window.location.href = '/pop/'+Poll2._id;
 		//$location.path('/pop/'+Poll2._id);
@@ -473,7 +485,7 @@ function PollEditCtrl($scope, $location, Poll, Poll2, $http) {
 							break;
 					}
 
-					console.log("editfinish",pollAux);
+				//	console.log("editfinish",pollAux);
 					if(parseInt(poll.tipo) == 2 && poll.Min >= poll.Max){
 						alert('El valor minimo de la encuesta no puede ser mayor o igual al valor maximo asignado');
 					}else{
@@ -495,7 +507,7 @@ function PollEditCtrl($scope, $location, Poll, Poll2, $http) {
 // Controller for creating a new poll
 function PollNewCtrl($scope, $location, Poll) {
 	// Define an empty poll model object
-	console.log($scope);
+	//console.log($scope);
 
 	$scope.cat = {
 			catSchema: [{text:'Todas'}],
@@ -557,7 +569,7 @@ function PollNewCtrl($scope, $location, Poll) {
 				$scope.opcion = 2;
 				break;
 		}
-		console.log($scope.opcion);
+	//	console.log($scope.opcion);
 	}
 
 	// Method to add an additional choice option
@@ -582,8 +594,8 @@ function PollNewCtrl($scope, $location, Poll) {
 	$scope.createPoll = function() {
 		var poll = $scope.polltipo;
 		var tg = $scope.cat;
-		console.log("tpoll",poll);
-		console.log("tag",tg.catSchema);
+	//	console.log("tpoll",poll);
+	//	console.log("tag",tg.catSchema);
 		var pollTipos;
 		var catcat;
 			catcat = $scope.cat;
@@ -591,7 +603,7 @@ function PollNewCtrl($scope, $location, Poll) {
 			var tag = catcat.catSchema[i];
 			
 		}
-		console.log("tagif",tag);
+	//	console.log("tagif",tag);
 		switch(parseInt(poll.tipo)){
 			case 0:
 				pollTipos = $scope.polltipo1;
@@ -616,7 +628,7 @@ function PollNewCtrl($scope, $location, Poll) {
 					choiceCount++
 				}
 			}
-					console.log("choiceif",choice);
+				//	console.log("choiceif",choice);
 
 		
 			if(choiceCount > 1) {
@@ -664,7 +676,7 @@ function PollNewCtrl($scope, $location, Poll) {
 					alert('El valor minimo de la encuesta no puede ser mayor o igual al valor maximo asignado');
 				}else{
 					// Create a new poll from the model
-					console.log("pollaux",pollAux);
+		//			console.log("pollaux",pollAux);
 					var newPoll = new Poll(pollAux);
 					// Call API to save poll to the database
 					newPoll.$save(function(p, resp) {

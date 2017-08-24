@@ -1,9 +1,9 @@
 <div class="page-header">
 	<div class="row">
-		<div class="col-md-9">
+		<div class="col-xs-9">
 	<h1>Lista de Encuestas</h1>
 		</div>
-		<div class="col-md-2">
+		<div class="col-xs-3">
 					<button ng-click="config()"
 								type="button" class="btn btn-default">
 							<span class="glyphicon glyphicon-cog"></span>
@@ -84,22 +84,25 @@
 
 			
 					<td ng-if="poll.tipo == '0'">
-						Seleccion multiple
+						Seleccion multiple.
 						</td>
 							<td ng-if="poll.tipo == '1'">
-						Seleccion multiple + respuesta
+						Seleccion multiple + respuesta.
 						</td>
 							<td ng-if="poll.tipo == '2'">
-						Rango
+						Rango.
 						</td>
 				
 
 					<td  style="width:20%">
 				
-	
-						<p ng-repeat="cat in poll.catSchema track by $index">
-					 {{cat.text}}
+						<h6>
+							<p>
+						<span ng-repeat="cat in poll.catSchema track by $index">
+					 {{cat.text}}{{$last ? '.' : ', '}}
+					 </span>
 					 </p>
+					 </h6>
 					 </td>
 				<td >
 					<div class="btn-group pull-left" role="group">

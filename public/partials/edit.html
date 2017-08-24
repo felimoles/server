@@ -88,14 +88,14 @@
 	
 	<div class="row">
 		<div class="col-xs-12">
-			<button type="button" class="btn btn-default" ng-click="addChoice()">
+			<button type="button" class="btn btn-default" ng-click="addChoice()" ng-disabled="polltipo.tipo == 0" >
 				<span class="glyphicon glyphicon-plus"></span> Añadir Otro</button>
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for="pollQuestion">Categorías</label>
-			<tags-input ng-model="cat.catSchema"  placeholder="Ingresa tus categorías"  min-tags="1" > </tags-input>
+			<tags-input ng-model="cat.catSchema"  placeholder="Ingresa tus categorías"  min-tags="1" replace-spaces-with-dashes="false"> </tags-input>
 		
 	
 	

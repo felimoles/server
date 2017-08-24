@@ -219,7 +219,7 @@ app.post('/polls', routes.create);
 
 app.post('/vote', routes.vote);
 
-app.post('/delete',routes.delete);
+app.delete('/deleteobject/:id',routes.delete);
 
 io.sockets.on('connection', routes.vote);
 

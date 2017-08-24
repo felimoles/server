@@ -354,8 +354,14 @@ exports.list = function(req, res) {
 	});
 };
 
-exports.delete = function(){
+exports.delete = function(req, res){
+		var id = req.params.id;
+		console.log(id); 
+		Poll.findByIdAndRemove({_id:id}, function(err, doc){
+			
+			res.json(doc);
+			
+		});
 
-		Poll.findByIdAndRemove({_id:id}, function(err){});
 };
 
