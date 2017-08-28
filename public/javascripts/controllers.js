@@ -48,6 +48,17 @@ function PollListCtrl2($scope) {
 		$scope.showModal = false;
 	};
 
+
+
+
+	$scope.logout =function(){
+		if (confirm("Seguro que desea salir?")) {
+			$http.get('/logout/');
+				console.log("logout");
+		}
+	
+	};
+
 	
 }
 
@@ -281,8 +292,15 @@ function PollItemCtrl($scope, $routeParams, socket, Poll, $http, $timeout) {
 	};
 }
 
+function PollConfigCrtl($scope,$location,Data,$http){
+
+	
+	console.log("scope",Data);
+
+}
+
 function PollEditCtrl($scope, $location, Poll, Poll2, $http) {
-	//console.log("poll2",Poll2);
+	console.log("poll2",Poll2);
 	$scope.cat = {
 			catSchema: Poll2.catSchema
 

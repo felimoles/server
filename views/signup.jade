@@ -1,5 +1,6 @@
 extends ./layout.jade
 html(lang='en')
+title Registro
 block contenido
 	div(class="col-md-12")
 		a(href="/log_in" class="btn btn-warning") Volver
@@ -7,23 +8,23 @@ block contenido
 		form(action="/pruebita" method="POST")
 			div(class="form-group")
 				label(for="email") E-Mail
-				input(type="text" class="form-control" id="email" name="email" email="email" placeholder="Ingrese correo electronico")
+				input(type="email" class="form-control" id="email" name="email" email="email" placeholder="Ingrese correo electronico" required)
 			div(class="form-group")
 				label(for="name") Nombre
-				input(type="text" class="form-control" id="name" name="name" placeholder="Ingrese nombre")
+				input(type="text" class="form-control" id="name" name="name" placeholder="Ingrese nombre" required)
 			div(class="form-group")
 				label(for="lastname") Apellido
-				input(type="text" class="form-control" id="lastname" name="lastname" placeholder="Ingrese apellido")
+				input(type="text" class="form-control" id="lastname" name="lastname" placeholder="Ingrese apellido" required)
 			div(class="form-group")
 				label(for="username") Usuario
-				input(type="text" class="form-control" id="username" name="username" placeholder="Ingrese nombre de usuario")
+				input(type="text" class="form-control" id="username" name="username" placeholder="Ingrese nombre de usuario" required)
 			div(class="form-group")
 				label(for="uni") Universidad
-				input(type="text" class="form-control" id="uni" name="uni" placeholder="Ingrese universidad")
+				input(type="text" class="form-control" id="uni" name="uni" placeholder="Ingrese universidad" required)
 			div(class="form-group")
 				label(for="password") Contraseña
-				input(type="password" class="form-control" id="password" name="password" placeholder="Ingrese contraseña")
+				input(type="password" class="form-control" id="password" name="password" placeholder="Ingrese contraseña" required)
 			div(class="form-group")
 				label(for="p_c") Confirmar Contraseña
-				input(type="password" class="form-control" id="p_c" name="p_c" placeholder="Reingrese contraseña")
+				input(type="password" class="form-control" id="p_c" name="p_c" placeholder="Reingrese contraseña" required)
 			button(type="submit" class="btn btn-success") Registrar

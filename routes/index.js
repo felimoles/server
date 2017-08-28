@@ -29,11 +29,19 @@ exports.index = function(req, res) {
 	if(req.session.user_id)
 		res.render('index');
 	else
-		res.render('login');
+		res.redirect('/');
 };
 
 exports.prueba = function(req, res) {
-	res.render('prueba');
+	User.findOne({email:req.body.email,password:req.body.password},function(err,user){
+			if (user) {
+				req.session.user_id = user._id;
+				console.log("rs.session",req.session);
+				req.session.name = user.name;
+				//res.redirect('index');				
+			}
+		});
+	//res.render('prueba');
 };
 
 // JSON API for getting a single poll
@@ -287,21 +295,27 @@ exports.session = function(req, res){
 		User.findOne({email:req.body.email,password:req.body.password},function(err,user){
 			if (user) {
 				req.session.user_id = user._id;
-
+				console.log("rs.session",req.session);
 				req.session.name = user.name;
-				res.render('index');				
+				res.redirect('index');				
 			}else{
-				res.send("No existe el usuario");
+				var feedbackMsg = "No pudimos iniciar session, email o contraseña incorrecto";
+				//res.send("No existe el usuario");
+				res.render("login",{type:"warning",feedback: feedbackMsg});
+			//	setTimeout(function(){ res.redirect("index"); }, 2000);
 			}
 		});
 	};
 
 exports.login = function(req, res) {
-
+	console.log("rs.login",req.session);
 	var vars = { type: req.query.type,
 				feedback: req.query.feedback };
-	res.render('login',
-		vars
+	if(req.session.user_id){
+		res.redirect("index");
+	}
+
+	res.render('login',vars
 	);
 };
 
@@ -365,3 +379,20 @@ exports.delete = function(req, res){
 
 };
 
+exports.logout =function(req,res){
+
+
+ req.session.destroy(function(err){
+
+	 	if(!err){
+		res.redirect("/log_in");
+			console.log("deberia renderizar login");
+		 }else{
+		res.redirect("/log_in");
+
+		 }
+
+ });
+ 
+
+};

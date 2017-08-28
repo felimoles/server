@@ -38,8 +38,16 @@ var io = require('socket.io').listen(server);
 });*/
 app.use(cors());
 
+// session
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+	secret: "aSdFgHjKlÑ13579",
+	resave: false,
+	saveUninitialized: false
+}));
+
+
 
 app.set('port', process.env.VCAP_APP_PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -55,12 +63,7 @@ app.use(express.cookieParser());
 
 // Handle Errors gracefully
 
-app.set('trust proxy', 1) // trust first proxy
-app.use(session({
-	secret: 'keyboard cat',
-	resave: false,
-	saveUninitialized: false
-}))
+app.set('trust proxy', 1); // trust first proxy
 
 app.use(function(err, req, res, next) {
 	if(!err) return next();
@@ -218,6 +221,8 @@ app.get('/pollsito3', function(req, res){
 app.post('/polls', routes.create);
 
 app.post('/vote', routes.vote);
+
+app.get('/logout',routes.logout);
 
 app.delete('/deleteobject/:id',routes.delete);
 

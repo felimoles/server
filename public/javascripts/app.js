@@ -23,6 +23,7 @@ angular.module('pollz', ['pollServices', 'ui.bootstrap.modal']).
 					}
 				}
 			 }).
+			 
 			when('/pollpop/:pollId', { templateUrl: 'partials/edit.html', controller: PollEditCtrl, resolve: {
 					Poll2: function($http, $route){
 					return $http.get('/polls/'+$route.current.params.pollId)
@@ -34,6 +35,16 @@ angular.module('pollz', ['pollServices', 'ui.bootstrap.modal']).
 				}
 			 }).
 			when('/new', { templateUrl: 'partials/new.html', controller: PollNewCtrl }).
+			when('/config', { templateUrl: 'partials/config.html', controller: PollConfigCrtl,resolve:{
+							Data: function($http, $route){
+					return $http.get('/prueba')
+						.then(function(response){
+							
+							return response.data;
+						})
+					}
+
+			} }).
 			// If invalid route, just redirect to the main list view
 			otherwise({ redirectTo: '/polls' });
 			

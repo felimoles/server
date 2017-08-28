@@ -4,14 +4,11 @@
 	<h1>Lista de Encuestas</h1>
 		</div>
 		<div class="col-xs-3">
-					<button ng-click="config()"
-								type="button" class="btn btn-default">
-							<span class="glyphicon glyphicon-cog"></span>
-						</button>
-					<button ng-click="logout()"
-								type="button" class="btn btn-default">
-							<span class="glyphicon glyphicon-off"></span>
-						</button>
+					<a href="#/config/{{poll._id}}" class="btn btn-default">	<span class="glyphicon glyphicon-cog"></span></a>
+						
+						
+					
+							<a href="/logout" class="btn btn-default">	<span class="glyphicon glyphicon-off"></span></a>
 			</div>
 	</div>
 </div>
@@ -72,7 +69,7 @@
 		<li><em>No hay encuestas. Te gustaría <a href="#/new">crear una</a>?</li>
 	</ul>
 		<table class="table table-condensed table-hover table-striped" ng-switch-default>
-			<thead> <tr> <th>#</th> <th>Nombre Encuesta</th> <th>Tipo</th><th>Categoria </th> <th>Controles</th></tr> </thead>
+			<thead> <tr> <th>#</th> <th>Titulo</th> <th>Tipo</th><th>Categoria </th> <th>Controles</th></tr> </thead>
 			<tr ng-repeat="poll in polls | filter:query">
 				
 

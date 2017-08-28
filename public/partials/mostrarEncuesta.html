@@ -1,16 +1,25 @@
 <p>
-<div ng-show="!Activado">
-		<button type="button" class="btn btn-default"
-		ng-click="showMoreFunc()">Activar</button>
-</div>
 <p>
+
+<div class="page-header">
+
+
 <div ng-show="Activado && !poll.RealTime">
+
+	<h1>Ocultar Encuesta</h1> 
 		<button type="button" class="btn btn-default" 
 		ng-click="showMoreFunc2()">Desactivar</button>
 </div>
-<div class="page-header">
-	<h1>Mostrar Encuesta</h1>
+	
+	 <div ng-show="!Activado">
+		 
+<h1>Mostrar Encuesta</h1> 
+		<button type="button" class="btn btn-default"
+		ng-click="showMoreFunc()">Activar</button>
+	</div>
+
 </div>
+
 <div ng-show="poll.RealTime == true && Activado">
 	<strong><h1><div align="right" >{{counter}} segundos</div></h1></strong>
 </div>
@@ -18,10 +27,10 @@
     <button ng-click="wena()">OK</button>
 </div>-->
 <div class="well well-lg">
-	<strong>Question</strong><br>{{poll.question}}</br><strong>ID:</strong><br>{{poll._NumId}}</br>
+	<strong>Pregunta</strong><br>{{poll.question}}</br><strong>Codigo:</strong><br>{{poll._NumId}}</br>
 </div>
 <!--<div style="width:50%;">-->
-<canvas id="myChart" width="700" height="350"></canvas>
+<canvas id="myChart" width="700" height="350" ng-show="Activado && !poll.Realtime"></canvas>
 <p>
 		<em>
 			{{poll.totalVotes}} Votos contados.
